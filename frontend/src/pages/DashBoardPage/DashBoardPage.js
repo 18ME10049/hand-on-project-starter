@@ -5,7 +5,6 @@ import { useState } from 'react';
 import photo from "./photo.svg";
 
 function DashBoardPage() {
-  
   const [cards, setcards] = useState([
     {
       id: 1,
