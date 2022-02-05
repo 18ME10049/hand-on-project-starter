@@ -9,8 +9,8 @@ function LoginPage() {
   const [password, setPassword] = useState({});
 
   function handleChange(e) {
-    if (e.target.name == "email") setEmail(e.target.value);
-    if (e.target.name == "password") setPassword(e.target.value);
+    if (e.target.name === "email") setEmail(e.target.value);
+    if (e.target.name === "password") setPassword(e.target.value);
   }
 
   const handleSubmit = (e) => {

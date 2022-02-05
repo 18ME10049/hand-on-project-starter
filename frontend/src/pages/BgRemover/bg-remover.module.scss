@@ -1,0 +1,82 @@
+.box {
+  width: 100;
+  background: rgba(45, 81, 153, 0.5);
+}
+
+.linker{
+  background-color: red;
+  width: 30 px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.box1 {
+  float: left;
+  position: absolute;
+  width: 717px;
+  height: 100px;
+  left: 50px;
+  top: 88px;
+
+  background: rgba(247, 248, 250, 0.5);
+}
+
+.box2 {
+  float: right;
+  position: absolute;
+  width: 430px;
+  height: 456px;
+  left: 874px;
+  top: 210px;
+
+  background: #ffffff;
+  border: 1px solid #dfe0e0;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+
+.image12 {
+  position: absolute;
+  width: 400px;
+  height: 315px;
+  left: 90px;
+  top: 300px;
+}
+
+.h2text{
+    position: absolute;
+width: 326px;
+height: 124px;
+left: 152px;
+top: 115px;
+
+font-family: DM Sans;
+font-style: normal;
+font-weight: bold;
+font-size: 48px;
+line-height: 62px;
+letter-spacing: -0.02em;
+
+/* primary text */
+
+color: #1E272E;
+}
+
+.h4text{
+    position: absolute;
+    width: 319px;
+height: 36px;
+left: 152px;
+top: 270px;
+
+font-family: DM Sans;
+font-style: normal;
+font-weight: 500;
+font-size: 28px;
+line-height: 36px;
+letter-spacing: -0.02em;
+
+/* secondary text */
+
+color: #566474;
+}

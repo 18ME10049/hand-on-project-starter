@@ -1,5 +1,5 @@
 import React from "react";
-import photo from "./photo.svg";
+// import photo from "./photo.svg";
 import Card from "../Card/Card";
 
 const Cards = ({ cards }) => {
