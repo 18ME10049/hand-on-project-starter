@@ -9,7 +9,7 @@ var FormData = require("form-data");
 const { sign } = require("jsonwebtoken");
 dotenv.config();
 const auth = require("./middlewares/auth")
-var ObjectId = require('mongodb').ObjectId;
+// var ObjectId = require('mongodb').ObjectId;
 
 // eslint-disable-next-line no-unused-vars
 // var FormData = require("form-data");
@@ -50,6 +50,10 @@ const APISchema = new mongoose.Schema({
   desc: {
     type: String,
   },
+  IsPublish : {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // eslint-disable-next-line no-unused-vars
@@ -181,9 +185,11 @@ app.put("/update-card",async (req,res)=>{
   var obj=req.body.obj;
   console.log(id);
  try{
-  APIDetails.findById(id,(err,result)=>{
+    APIDetails.findById(id,(err,result)=>{
     if(err)res.send({message:err});
-    else
+    // eslint-disable-next-line no-prototype-builtins
+    if(obj.hasOwnProperty("IsPublish"))
+    result.IsPublish=obj.IsPublish
     if(obj.email)
     result.email=obj.email;
     if(obj.name)
@@ -193,12 +199,20 @@ app.put("/update-card",async (req,res)=>{
     if(obj.desc)
     result.desc=obj.desc;
     SaveAPIdata(result);
+    res.send("")
 })
  }
  catch(err){
+   console.log("fs",err)
   res.send({message:err});
  }
   
+})
+
+app.delete("/delete-card",async(req,res)=>{
+  await APIDetails.findByIdAndRemove(req.body.id).exec();
+  console.log(req.body.id);
+  res.send("")
 })
 
 app.listen(process.env.PORT || 3000, () => {

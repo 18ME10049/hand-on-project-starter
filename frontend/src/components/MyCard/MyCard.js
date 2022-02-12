@@ -18,7 +18,7 @@ const MyCard = (card) => {
         if (e.target.name == "desc") setdesc(e.target.value);
     }
 
-    function handleclick() {
+    function handleEdit() {
         for(var i=0 ;i<document.getElementsByClassName("delete").length;i++ )
         document.getElementsByClassName("delete")[i].style.display="none";
         // document.getElementsById("1").style.display="none";
@@ -56,7 +56,63 @@ const MyCard = (card) => {
                 alert("error in signup: ", err);
             });
     }
-  
+    async function handlePublish(){
+        // e.preventD/efault();
+        
+        const obj = {
+            IsPublish:true
+        }
+        console.log(obj)
+        axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
+            .then(res => {
+                if (res.data.message) alert(res.data.message);
+                else {
+                    
+                    history("/");
+                    // window.location.reload(false);
+                }
+            })
+            .catch(err => {
+                alert("error in signup: ", err);
+            });
+    }
+
+    async function handleUnPublish(){
+        // e.preventD/efault();
+        
+        const obj = {
+            IsPublish:false
+        }
+        console.log(obj)
+        axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
+            .then(res => {
+                if (res.data.message) alert(res.data.message);
+                else {
+                    history("/");
+                    // window.location.reload(false);
+                }
+            })
+            .catch(err => {
+                alert("error in signup: ", err);
+            });
+    }
+
+    async function handleDelete(){
+        // e.preventD/efault();
+        axios.delete("http://localhost:3001/delete-card", {data: {id:card.id}})
+            .then(res => {
+                if (res.data.message) alert(res.data.message);
+                else {
+                    history("/")
+                    history("/my-apis");
+                    // window.location.reload(false);
+                }
+            })
+            .catch(err => {
+                alert("error in signup: ", err);
+            });
+    }
+
     return (
         <>
             <div className={[style.container, "delete"].join(' ')} >
@@ -68,17 +124,44 @@ const MyCard = (card) => {
                     <div className={style.body_post}>
                         <div className={style.post_content}>
                             <h1>{card.name}</h1>
-                            <p>{card.description}sdsd</p>
-                            <button
+                            <p>{card.description}</p>
+                           <div className={style.manageButtons}> 
+                            <button className={style.ourbutton}
                                 type="button"
-                                className="btn btn-primary"
                                 onClick={() => {
-                                    handleclick()
+                                    handleEdit()
                                 }
                                 }
                             >
                                 Edit
                             </button>
+                            <button className={style.ourbutton}
+                                type="button"
+                                onClick={() => {
+                                    handleDelete()
+                                }
+                                }
+                            >
+                                Delete
+                            </button>
+                            {!card.IsPublish? <button className={style.ourbuttons}
+                                type="button"
+                                onClick={() => {
+                                    handlePublish()
+                                }
+                                }
+                            >
+                                Publish
+                            </button>:<button className={style.ourbuttons}
+                                type="button"
+                                onClick={() => {
+                                    handleUnPublish()
+                                }
+                                }
+                            >
+                                UnPublish
+                            </button>}
+                            </div>
                         </div>
                     </div>
                 </div>

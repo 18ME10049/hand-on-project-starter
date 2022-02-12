@@ -32,6 +32,7 @@ function NewAPI() {
             name: name,
             url: url, 
             desc: desc,
+            IsPublish:false,
         }
        console.log(obj);
         axios.post("http://localhost:3001/new-api", obj,)
