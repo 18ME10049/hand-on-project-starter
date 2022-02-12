@@ -3,13 +3,6 @@
   background: rgba(45, 81, 153, 0.5);
 }
 
-.linker{
-  background-color: red;
-  width: 30 px;
-  height: 30px;
-  cursor: pointer;
-}
-
 .box1 {
   float: left;
   position: absolute;
@@ -79,4 +72,11 @@ letter-spacing: -0.02em;
 /* secondary text */
 
 color: #566474;
+}
+
+.linker{
+  background-color: red;
+  width: 30 px;
+  height: 30px;
+  cursor: pointer;
 }

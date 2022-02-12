@@ -1,14 +1,24 @@
 import React from "react";
-
-const Card = ({ card }) => {
+import style from './Card.module.scss'
+// eslint-disable-next-line no-unused-vars
+const Card = (card) => {
   return (
-    <div className="col-4 col-lg-3 text-center work-container-subdiv">
-      <div>
-        <img src={card.image} alt="" />
-      </div>
-      <h2 className="sub-heading">{card.name}</h2>
-      <p className="main-hero-para w-100">{card.description}</p>
+    <div className={style.container}>
+    <div className={style.post}>
+        <div className={style.header_post}>
+            <img src={card.image} alt="" />
+        </div>
+
+        <div className={style.body_post}>
+            <div className={style.post_content}>
+
+                <h1>{card.name}</h1>
+                <p>{card.description}</p>
+
+            </div>
+        </div>
     </div>
+</div>
   );
 };
 

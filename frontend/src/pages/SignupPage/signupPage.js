@@ -21,7 +21,7 @@ function SignupPage() {
       email:email,
       password: password
     }
-    axios.post("http://localhost:3001/register",obj)
+    axios.post("http://localhost:3001/signupPage",obj)
     .then(res=>alert(res.data.message))
     .catch(err=>{
       alert("error in signup: ",err );

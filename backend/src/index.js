@@ -3,9 +3,12 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const axios = require("axios");
+const auth = require("./middlewares/Auth");
 // const fs = require("fs");
 dotenv.config();
 var FormData = require("form-data");
+
+const { sign } = require("jsonwebtoken");
 
 const app = express();
 app.use(cors());
@@ -32,9 +35,28 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+const APISchema = new mongoose.Schema({
+  email: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  url: {
+    type: String,
+  },
+  desc: {
+    type: String,
+  },
+  IsPublish: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 // eslint-disable-next-line no-unused-vars
 const UserDetails = mongoose.model("UserDetails", UserSchema);
-
+const APIDetails = mongoose.model("APIDetails", APISchema);
 // const silence = new UserDetails({ email: "okkk", password: "Ptanhi@123" });
 
 async function Saveuserdata(userdata) {
@@ -42,7 +64,11 @@ async function Saveuserdata(userdata) {
   const result = await newuser.save();
   return result;
 }
-
+async function SaveAPIdata(APIdata) {
+  const newuser = new APIDetails(APIdata);
+  const result = await newuser.save();
+  return result;
+}
 // eslint-disable-next-line no-unused-vars
 app.post("/register", (req, res) => {
   const Newuser = req.body;
@@ -65,15 +91,23 @@ app.post("/register", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
+  // console.log("Kitni baar chalgea? ");
   const Newuser = req.body;
   if (!Newuser.email) res.send({ message: "Please enter Email" });
   else if (!Newuser.password) res.send({ message: "Please enter Password" });
   else {
     UserDetails.findOne({ email: Newuser.email }, (err, user) => {
       if (user) {
-        if (Newuser.password == user.password)
-          res.send({ message: "Ur are logged in" });
-        else res.send({ message: "Please Enter correct password" });
+        // eslint-disable-next-line no-empty
+        if (Newuser.password == user.password) {
+          const accessToken = sign(
+            {
+              email: Newuser.email,
+            },
+            "RamTeriGangaMeli",
+          );
+          res.send(accessToken);
+        } else res.send({ message: "Please Enter correct password" });
       } else {
         res.send({ message: `User does not exist` });
       }
@@ -81,46 +115,16 @@ app.post("/login", (req, res) => {
   }
 });
 
+app.post("/auth", auth, async (req, res) => {
+  res.json(req.user);
+});
+
 app.post("/bg-remover", (req, res) => {
-  // Image should be in base64 format from the frontend
-  // data:image/jpeg , jkjlkjjkljkjlkjlkjh
   const image = req.body.base64image;
   const imageData = image.substring(image.indexOf(",") + 1);
-
-  // Base64 image request related form data for Remove Background API
-  // image_file_b64 is a variable for base64 image.
   const formData = new FormData();
   formData.append("size", "auto");
   formData.append("image_file_b64", imageData);
-
-  // Axios post request to remove.bg with the formData
-  // axios({
-  //   method: "post",
-  //   url: "https://api.remove.bg/v1.0/removebg",
-  //   data: formData,
-  //   responseType: "json",
-  //   headers: {
-  //     "X-Api-Key": "wkaGohZucxHUgiEBokmiUiFS",
-  //     Accept: "application/json",
-  //   },
-  // })
-  //   .then((response) => {
-  //     return res.status(200).json({
-  //       image: response.data.data.result_b64, // This variable returns base64 image result from remove.bg api
-  //     });
-  //   })
-  //   .catch((error) => {
-  //     return console.error("Request failed:", error);
-  //   });
-
-  //for checking in backend itself
-  // const formData = new FormData();
-  // formData.append("size", "auto");
-  // formData.append(
-  //   "image_url",
-  //   "https://www.whatsappimages.in/wp-content/uploads/2020/12/Cute-Girl-Images-For-Whatsapp-Dp-Free-Download-9.jpg",
-  // );
-
   axios({
     method: "post",
     url: "https://api.remove.bg/v1.0/removebg",
@@ -141,6 +145,57 @@ app.post("/bg-remover", (req, res) => {
     .catch((error) => {
       return console.log("Request failed: ", error);
     });
+});
+
+app.post("/new-api", auth, async (req, res) => {
+  const NewAPI = req.body;
+  NewAPI.email = req.user.email;
+  SaveAPIdata(NewAPI);
+  res.send("");
+  // }
+});
+
+app.get("/allapi", async (req, res) => {
+  APIDetails.find((err, apis) => {
+    // console.log(apis);
+    res.send(apis);
+  });
+});
+
+app.post("/my-all-api", auth, async (req, res) => {
+  APIDetails.find({ email: req.user.email }, (err, apis) => {
+    // console.log("****");
+    res.send(apis);
+  });
+});
+
+app.put("/update-card", async (req, res) => {
+  // var id = new ObjectId(req.body.id);
+  var id = req.body.id;
+  var obj = req.body.obj;
+  console.log(id);
+  try {
+    APIDetails.findById(id, (err, result) => {
+      if (err) res.send({ message: err });
+      // eslint-disable-next-line no-prototype-builtins
+      if (obj.hasOwnProperty("IsPublish")) result.IsPublish = obj.IsPublish;
+      if (obj.email) result.email = obj.email;
+      if (obj.name) result.name = obj.name;
+      if (obj.url) result.url = obj.url;
+      if (obj.desc) result.desc = obj.desc;
+      SaveAPIdata(result);
+      res.send("");
+    });
+  } catch (err) {
+    console.log("fs", err);
+    res.send({ message: err });
+  }
+});
+
+app.delete("/delete-card", async (req, res) => {
+  await APIDetails.findByIdAndRemove(req.body.id).exec();
+  console.log(req.body.id);
+  res.send("");
 });
 
 app.listen(process.env.PORT || 3000, () => {
