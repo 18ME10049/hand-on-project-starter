@@ -1,0 +1,86 @@
+.box {
+    position: absolute;
+    width: 1240px;
+    height: 186px;
+    left: 100px;
+    top: 148px;
+  
+    background: #c3e7fd;
+    border-radius: 10px;
+  }
+  
+  .rot {
+    position: absolute;
+    width: 407px;
+    height: 186px;
+    left: 507px;
+    top: 334px;
+  
+    background: #d3b4f6;
+    border-radius: 1000px 0px 0px 1000px;
+    transform: rotate(-180deg);
+  }
+  
+  .image12 {
+    position: absolute;
+    width: 294px;
+    height: 186px;
+    left: 0px;
+    top: 0px;
+  }
+  
+  .text{
+    position: absolute;
+  width: 395px;
+  height: 58px;
+  left: 557px;
+  top: 50px;
+  font-family: Bebas Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 25px;
+  line-height: 58px;
+  /* identical to box height */
+  
+  letter-spacing: -0.02em;
+  
+  /* primary text */
+  
+  color: #1E272E
+  }
+  
+  .texth2{
+    position: absolute;
+  width: 319px;
+  height: 36px;
+  left: 670px;
+  top: 251px;
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.02em;
+  
+  /* secondary text */
+  
+  color: #566474;
+  }
+  
+  .btn{
+    display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 16px;
+  
+  position: absolute;
+  width: 133px;
+  height: 44px;
+  left: 1140px;
+  top: 227px;
+  color:white;
+  background: #476780;
+  border-radius: 5px;
+  cursor: pointer;
+  }

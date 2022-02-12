@@ -1,0 +1,17 @@
+.margindede{
+    margin-top:300px;
+    // max-width: 100px;
+}
+
+.parent{
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:115px;
+}
+
+.child {
+    flex: 1 0 21%;
+    margin: 5px;
+    height: 100px;
+    background-color: red;
+}
