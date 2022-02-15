@@ -34,12 +34,12 @@ function NewAPI() {
             desc: desc,
             IsPublish:false,
         }
-       console.log(obj);
+       // console.log(obj);
         axios.post("http://localhost:3001/new-api", obj,)
             .then(res => {
                 if (res.data.message) alert(res.data.message);
                 else {
-                    history("/");
+                    history("/my-apis");
                 }
             })
             .catch(err => {

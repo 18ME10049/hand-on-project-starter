@@ -5,8 +5,9 @@ import style from './loginPage.module.scss'
 import {Link} from 'react-router-dom';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../helper/authContext"
-import Navbar from "../../components/Navbar/Navbar"
+import { AuthContext } from "../../helper/authContext";
+import Navbar from "../../components/Navbar/Navbar";
+import swal from 'sweetalert2';
 
 function LoginPage() {
 
@@ -14,8 +15,8 @@ function LoginPage() {
  
 
   let history = useNavigate();
-  const [email, setEmail] = useState({});
-  const [password, setPassword] = useState({});
+  const [email, setEmail] = useState(null);
+  const [password, setPassword] = useState(null);
 
   
   function handleChange(e) {
@@ -25,17 +26,28 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    // console.log(email, password);
     const obj={
       email:email,
       password: password
     }
     axios.post("http://localhost:3001/loginPage",obj)
     .then(res=>{
-      if(res.data.message)alert(res.data.message);
+      if(res.data.message){
+        swal({title: res.data.message,
+              icon: "error",
+              button: "OK!",
+            });
+      }
       else {
         setAuthState(true);
         sessionStorage.setItem("accessToken" , res.data);
+        swal.fire({
+          icon: 'success',
+          title: 'Logged In',
+          showConfirmButton: false,
+          timer: 1000,
+        });
         history("/");
       }
     })
@@ -53,7 +65,7 @@ function LoginPage() {
         <input type="email" name="email" id="name" placeholder="Email"  onChange={handleChange}/>
         <input type="text" name="password" id="name" placeholder="Password"  onChange={handleChange}/>
         <div className={style.btn_block}>
-         <button type="submit">Login</button>
+         <button className = "btn btn-primary" type="submit">Login</button>
         </div>
         <div className={style.or}>
           Or

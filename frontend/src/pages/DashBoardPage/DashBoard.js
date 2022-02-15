@@ -16,7 +16,7 @@ function DashBoard() {
      useEffect(()=>{
        axios.get('http://localhost:3001/allapi')
        .then((res) => {
-         console.log(res.data[0].name);
+         // console.log(res.data[0].name);
          setallapi(res.data);
         //  seaa
        });

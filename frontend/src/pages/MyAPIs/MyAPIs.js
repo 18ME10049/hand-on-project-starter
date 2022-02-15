@@ -15,10 +15,10 @@ function MyAPIs() {
 
      useEffect(async ()=>{
        var head=await sessionStorage.getItem("accessToken")
-       console.log("head",head)
+       // console.log("head",head)
        axios.post('http://localhost:3001/my-all-api', {header:head})
        .then((res) => {
-        //  console.log(res.data[0].name);
+        //  // console.log(res.data[0].name);
          setmyapi(res.data);
         //  seaa
         // console

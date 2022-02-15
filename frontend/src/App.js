@@ -19,7 +19,7 @@ function App() {
     axios.post("http://localhost:3001/auth",{header : sessionStorage.getItem("accessToken")})
     .then((res)=>{
       if(res.data.error){
-        console.log("Errr...");
+        // console.log("Errr...");
         setAuthState(false);
       }
       else setAuthState(true);

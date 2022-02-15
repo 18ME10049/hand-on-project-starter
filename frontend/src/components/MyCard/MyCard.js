@@ -4,6 +4,8 @@ import style from './MyCard.module.scss'
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import swal from "sweetalert";
+import swal from "sweetalert2";
 // eslint-disable-next-line no-unused-vars
 const MyCard = (card) => {
 
@@ -23,7 +25,7 @@ const MyCard = (card) => {
         document.getElementsByClassName("delete")[i].style.display="none";
         // document.getElementsById("1").style.display="none";
         document.getElementById(card.id).style.display="block";
-        console.log("Edit clicked ")
+        // console.log("Edit clicked ")
     }
     function handleCross() {
         for(var i=0 ;i<document.getElementsByClassName("delete").length;i++ )
@@ -42,13 +44,20 @@ const MyCard = (card) => {
             desc: desc,
             email: card.email,
         }
-        console.log(obj)
+        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
                 else {
                     handleCross();
                     history("/");
+                    swal.fire({
+                        title: "Successfully Edited!",
+                        icon: 'success',
+                        showConfirmButton: false,
+                        showCloseButton: false,
+                        timer: 1200,
+                    })
                     history("/my-apis");
                 }
             })
@@ -62,12 +71,17 @@ const MyCard = (card) => {
         const obj = {
             IsPublish:true
         }
-        console.log(obj)
+        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
                 else {
-                    
+                    swal.fire({
+                        title: "Published!!",
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1200,
+                    })
                     history("/");
                     // window.location.reload(false);
                 }
@@ -83,11 +97,17 @@ const MyCard = (card) => {
         const obj = {
             IsPublish:false
         }
-        console.log(obj)
+        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
                 else {
+                    swal.fire({
+                        title: "Removed Publically",
+                        showConfirmButton: false,
+                        icon: 'success',
+                        timer: 1200,
+                    })
                     history("/");
                     // window.location.reload(false);
                 }
@@ -124,7 +144,7 @@ const MyCard = (card) => {
                     <div className={style.body_post}>
                         <div className={style.post_content}>
                             <h1>{card.name}</h1>
-                            <p>{card.description}</p>
+                            <p className={style.scroll}>{card.description}</p>
                            <div className={style.manageButtons}> 
                             <button className={style.ourbutton}
                                 type="button"

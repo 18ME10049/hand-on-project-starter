@@ -327,5 +327,10 @@ margin:5px;
 cursor:pointer;
 }
 .manageButtons{
-margin-top: 70px;
+margin-top: -3px;
+}
+.scroll{
+  overflow-y: scroll;
+  height: 100px;
+  border: rgb(177, 18, 18) 2px;
 }

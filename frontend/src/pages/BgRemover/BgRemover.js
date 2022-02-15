@@ -19,7 +19,7 @@ const BgRemover = () => {
   });
 
     function handleChange(e){
-        // console.log(e.target);
+        // // console.log(e.target);
         setSelectedFile(e.target.files[0])
         var image = document.getElementById('output');
         // eslint-disable-next-line no-mixed-spaces-and-tabs
@@ -31,7 +31,7 @@ const BgRemover = () => {
       event.preventDefault();
       const image = await toBase64(selectedFile);
 
-      console.log(image);
+      // console.log(image);
       // const image = await selectedFile;
       axios.post("http://localhost:3001/bg-remover",{ image : image },{
         // headers: {
@@ -41,7 +41,7 @@ const BgRemover = () => {
     .then(res=>{
       var imgg = document.getElementById('output');
       imgg.src="data:image/png;base64,"+res.data;
-      console.log("Responce :",res.data);
+      // console.log("Responce :",res.data);
     })
     .catch(err=>{
       alert("error in signup: ",err );
@@ -58,7 +58,7 @@ const BgRemover = () => {
           <img className={style.image12} src={photo} alt="" />
         </div>
         <div className={style.box2}>
-          <input type="file" accept="image/*" onChange={handleChange} />
+          <input type="file" accept="image/*" onChange={handleChange}/>
           <img src="randi" id="output" />
           <button className="btn btn-primary" onClick={handleSubmit}>
                   Upload!
