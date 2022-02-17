@@ -10,6 +10,7 @@ import { AuthContext } from "./helper/authContext";
 import NewAPI from './pages/New-Api/NewAPI';
 import MyAPIs from './pages/MyAPIs/MyAPIs';
 import axios from "axios"
+import MyAccount from './pages/MyAccount/MyAccount';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
   useEffect(()=>{
     axios.post("http://localhost:3001/auth",{header : sessionStorage.getItem("accessToken")})
     .then((res)=>{
-      if(res.data.error){
+      if(res.data.message){
         // console.log("Errr...");
         setAuthState(false);
       }
@@ -33,6 +34,7 @@ function App() {
         <Routes>
           <Route path="/"  element={< DashBoard />} />
           <Route path="/loginPage"  element={< LoginPage />} />
+          <Route path="/my-account" element={<MyAccount/>}/>
           <Route path="/signupPage"  element={< SignupPage />} />
           <Route path='/bg-remover' element={<BgRemover/>} />
           <Route path='/new-api' element={<NewAPI/>} />

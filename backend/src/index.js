@@ -75,11 +75,11 @@ const APIDetails = mongoose.model("APIDetails", APISchema);
 
 // const silence = new UserDetails({ email: "🤩", password: "Ptanhi@123" });
 
-// async function Saveuserdata(userdata) {
-//   const newuser = new UserDetails(userdata);
-//   const result = await newuser.save();
-//   return result;
-// }
+async function Saveuserdata(userdata) {
+  const newuser = new UserDetails(userdata);
+  const result = await newuser.save();
+  return result;
+}
 
 async function SaveAPIdata(APIdata) {
   const newuser = new APIDetails(APIdata);
@@ -147,7 +147,7 @@ app.post("/verify-otp", async (req, res) => {
   var usercode = Rbody.usercode;
   // // console.log("code = ", code, usercode);
   if(code == usercode){
-    // await Saveuserdata({email :Rbody.email, password: Rbody.password});
+    await Saveuserdata({email :Rbody.email, password: Rbody.password});
     res.send({Isverify:  true});
   }
   else{
@@ -271,6 +271,28 @@ app.put("/update-card",async (req,res)=>{
  }
   
 })
+
+app.put("/update-password", auth, async (req, res) => {
+  var pass = req.body.password;
+  var mail = req.user.email;
+  try {
+    UserDetails.findOne({ email: mail }, (err, user) => {
+      if (err) res.send({ message: err });
+      else {
+        if(pass=="")res.send({message:"Please Enter Password"})
+        else{
+          if(pass!="")user.password=pass;
+          Saveuserdata(user);
+          res.send("")
+        }
+        
+      }
+    });
+  }
+  catch(err){
+    res.send({ message: err });
+  }
+});
 
 app.delete("/delete-card",async(req,res)=>{
   await APIDetails.findByIdAndRemove(req.body.id).exec();
