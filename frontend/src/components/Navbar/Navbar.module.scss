@@ -2,4 +2,22 @@ $primary-color: rgb(235, 95, 95);
 
 .navbar{
     color: $primary-color;
+    background-color: rgb(219, 226, 226);
+}
+
+.marg{
+    width: 400px;
+}
+
+.custom_button{
+    border: 1px solid;
+    width: 120px;
+    background-color: rgb(154, 185, 192);
+    font-weight: 500;
+    align-items: center;
+}
+
+.custom_button:hover{
+    background-color: rgb(12, 12, 11);
+    color: white;
 }

@@ -32,7 +32,7 @@ function MyAPIs() {
       </div>
       <div className={style.parent}>
           {myapi.length>0 ? myapi.map((item,index) =>(
-          <MyCard key ={index} IsPublish ={item.IsPublish} email={item.email} name={item.name} image={item.url} description={item.desc}  id={item._id} className={style.child} />
+          <MyCard key ={index} endpoint ={item.endpoint} IsPublish ={item.IsPublish} email={item.email} name={item.name} image={item.url} description={item.desc}  id={item._id} className={style.child} />
         )): <div className={style.mid}>Your uploaded APIs will Appear here ... 😒😒😒😒😒😁😁😁😁</div>}
         
       </div>

@@ -86,19 +86,19 @@ function handleCross() {
 }
    
   return (
-    <body>
+    <>
       <Navbar />
       <div className={style.main_block} id="1">
         <h1>Register</h1>
         <form onSubmit={handleSubmit}>
-          <input
+          <input className={style.forinput}
             type="email"
             name="email"
             id="name"
             placeholder="Email"
             onChange={handleChange}
           />
-          <input
+          <input className={style.forinput}
             type="text"
             name="password"
             id="name"
@@ -122,7 +122,6 @@ function handleCross() {
       </div>
 
       <div className={style.bg_modal} id="2">
-        <div className={style.modal_contents}>
           <div
             className={style.close}
             onClick={() => {
@@ -132,7 +131,7 @@ function handleCross() {
             +
           </div>
           <form action="">
-            <input
+            <input className={style.forinput}
               type="number"
               name="otp"
               id="otp"
@@ -141,7 +140,7 @@ function handleCross() {
             />
             <a
               href="#"
-              className={style.buttons}
+              className={[style.buttons, "btn"].join(' ')}
               onClick={() => {
                 handleVerify();
               }}
@@ -149,9 +148,8 @@ function handleCross() {
               Verify OTP
             </a>
           </form>
-        </div>
       </div>
-    </body>
+    </>
   );
 }
 

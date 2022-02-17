@@ -73,8 +73,10 @@ align-items: center;
     margin: auto;
     border-radius: 5px; 
     border: solid 1px #ccc;
-    box-shadow: 1px 2px 5px rgba(0,0,0,.31); 
+    box-shadow: 4px 8px 12px rgba(0, 0, 0, 1);  
     background: #ebebeb; 
+    margin-top: 50px;
+    background-color: aliceblue;
     }
     form {
     margin: 0 30px;
@@ -124,16 +126,6 @@ align-items: center;
     input[type=radio]:checked + label:after {
     opacity: 1;
     }
-    input[type=text], input[type=email] {
-    width: 285px;
-    height: 36px;
-    margin: 13px 0 0 -5px;
-    padding-left: 10px; 
-    border-radius: 5px 5px 5px 5px;
-    border: solid 1px #cbc9c9; 
-    box-shadow: 1px 2px 5px rgba(0,0,0,.09); 
-    background: #fff; 
-    }
     input[type=password] {
     margin-bottom: 15px;
     }
@@ -172,25 +164,17 @@ align-items: center;
 .bg_modal {
   // background-color: rgba(0, 0, 0, 0.8);
   border: 2px solid black;
+  box-shadow: 4px 8px 10px;
+  border-radius: 15px;
   margin-left: 536px;
   margin-top: 264px;
-  width: 420px;
-  height: 204px;
+  width: 370px;
+  height: 110px;
   position: absolute;
   top: 0;
   display: none;
   justify-content: center;
   align-items: center;
-  }
-  
-  .modal_contents {
-  height: 200px;
-  width: 400px;
-  background-color: white;
-  text-align: center;
-  padding: 20px;
-  position: relative;
-  border-radius: 4px;
   }
   
   
@@ -215,19 +199,28 @@ align-items: center;
   }
   }
   
-  .buttons {
-  background-color: blue;
-  border: 2px solid white;
-  border-radius: 30px;
-  text-decoration: none;
-  padding: 10px 28px;
-  color: white;
-  margin-top: 10px;
-  display: inline-block;
-  &:hover {
-    background-color: white;
-    color: blue;
-    border: 2px solid blue;
-  }
-  }
+  .buttons{
+    border: 1px solid;
+    width: 120px;
+    border-radius: 15px;
+    margin-top: 10px;
+    background-color: rgb(154, 185, 192);
+    font-weight: 500;
+    align-items: center;
+}
+
+.buttons:hover{
+    background-color: rgb(12, 12, 11);
+    color: white;
+}
   
+
+  .forinput {
+    width: 285px;
+    height: 36px;
+    margin: 13px 0 0 -5px;
+    padding-left: 10px; 
+    border-radius: 5px 5px 5px 5px;
+    border: solid 1px #cbc9c9; 
+    box-shadow: 1px 2px 5px rgba(0,0,0,1); 
+    }

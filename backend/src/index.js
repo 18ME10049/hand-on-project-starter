@@ -57,6 +57,9 @@ const APISchema = new mongoose.Schema({
   url: {
     type: String,
   },
+  endpoint: {
+    type: String,
+  },
   desc: {
     type: String,
   },
@@ -100,8 +103,8 @@ function encryptmyotp(currOtp){
 
 app.post("/signupPage", (req, res) => {
   const Newuser = req.body;
-  if (!Newuser.email === null) res.send({ message: "Please enter Email" });
-  else if (!Newuser.password === null) res.send({ message: "Please enter Password" });
+  if (Newuser.email === null) res.send({ message: "Please enter Email" });
+  else if (Newuser.password === null) res.send({ message: "Please enter Password" });
   else {
     UserDetails.findOne({ email: Newuser.email }, (err, user) => {
       if (user) {
@@ -256,6 +259,8 @@ app.put("/update-card",async (req,res)=>{
     result.url=obj.url;
     if(obj.desc)
     result.desc=obj.desc;
+    if(obj.endpoint)
+    result.endpoint=obj.endpoint;
     SaveAPIdata(result);
     res.send("")
 })

@@ -4,6 +4,7 @@ import style from './MyCard.module.scss'
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// import { useEffect } from "react";
 // import swal from "sweetalert";
 import swal from "sweetalert2";
 // eslint-disable-next-line no-unused-vars
@@ -13,11 +14,13 @@ const MyCard = (card) => {
     const [name, setname] = useState();
     const [url, seturl] = useState();
     const [desc,setdesc] = useState();
+    const [endpoint, setendpoint] = useState();
 
     function handleChange(e) {
         if (e.target.name == "name") setname(e.target.value);
         if (e.target.name == "url") seturl(e.target.value);
         if (e.target.name == "desc") setdesc(e.target.value);
+        if (e.target.name == "endpoint") setendpoint(e.target.value);
     }
 
     function handleEdit() {
@@ -42,6 +45,7 @@ const MyCard = (card) => {
             name: name,
             url: url, 
             desc: desc,
+            endpoint: endpoint,
             email: card.email,
         }
         // console.log(obj)
@@ -83,6 +87,7 @@ const MyCard = (card) => {
                         timer: 1200,
                     })
                     history("/");
+                    history("/my-apis");
                     // window.location.reload(false);
                 }
             })
@@ -109,6 +114,7 @@ const MyCard = (card) => {
                         timer: 1200,
                     })
                     history("/");
+                    history("/my-apis");
                     // window.location.reload(false);
                 }
             })
@@ -187,23 +193,18 @@ const MyCard = (card) => {
                 </div>
             </div>
             <div className={style.bg_modal} id={card.id}>
-                <div className={style.modal_contents}>
-
                     <div className={style.close} onClick={()=>{
                         handleCross();
                     }}>+</div>
-                    <img src="" alt="" />
-
                     <form action="">
-                        <input type="text" name="name" id="name" placeholder="API Name" defaultValue={card.name}  onChange={handleChange}/>
-                        <input type="text" name="url" id="url" placeholder="API Image Url" defaultValue={card.image} onChange={handleChange}/>
-                        <input type="text" name="desc" id="desc" placeholder="Description" defaultValue={card.description} onChange={handleChange}/>
-                        <a href="#" className={style.buttons} onClick={()=>{
+                        <input className={style.forinput} type="text" name="name" id="name" placeholder="API Name" defaultValue={card.name}  onChange={handleChange}/>
+                        <input className={style.forinput} type="text" name="url" id="url" placeholder="API Image Url" defaultValue={card.image} onChange={handleChange}/>
+                        <input className={style.forinput} type="text" name="endpoint" id="endpoint" placeholder="API Endpoint" defaultValue={card.endpoint} onChange={handleChange}/>
+                        <textarea className={style.fortextarea} type="text" name="desc" id="desc" placeholder="Enter Description" defaultValue={card.description} cols="30" rows="5" onChange={handleChange} />
+                        <a href="#" className={[style.custom_button, "btn"].join(' ')} onClick={()=>{
                             handleUpdate();
                         }}>Update and Save</a>
                     </form>
-
-                </div>
             </div>
         </>
     );

@@ -17,11 +17,13 @@ function NewAPI() {
     const [name, setname] = useState();
     const [url, seturl] = useState();
     const [desc,setdesc] = useState();
+    const [endpoint,setendpoint] = useState();
 
     function handleChange(e) {
         if (e.target.name == "name") setname(e.target.value);
         if (e.target.name == "url") seturl(e.target.value);
         if (e.target.name == "desc") setdesc(e.target.value);
+        if (e.target.name == "endpoint") setendpoint(e.target.value);
     }
 
     const handleSubmit = (e) => {
@@ -32,6 +34,7 @@ function NewAPI() {
             name: name,
             url: url, 
             desc: desc,
+            endpoint: endpoint,
             IsPublish:false,
         }
        // console.log(obj);
@@ -48,21 +51,22 @@ function NewAPI() {
     }
 
     return (
-        <body>
+        <>
             <Navbar/>
             <div className={style.main_block}>
                 <h1>ADD New API</h1>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="name" id="name" placeholder="API Name" onChange={handleChange} />
-                    <input type="text" name="url" id="url" placeholder="API Image Url" onChange={handleChange} />
-                    <input type="text" name="desc" id="desc" placeholder="Description" onChange={handleChange} />
+                    <input className={style.forinput} type="text" name="name" id="name" placeholder="API Name" onChange={handleChange} />
+                    <input className={style.forinput} type="text" name="url" id="url" placeholder="API Image Url" onChange={handleChange} />
+                    <input className={style.forinput} type="text" name="endpoint" id="endpoint" placeholder="API Endpoint" onChange={handleChange} />
+                    <textarea  className={style.fortextarea} type="text" name="desc" id="url" placeholder="Enter Description" cols="30" rows="5" onChange={handleChange} />
+                    {/* <input type="text" name="desc" id="desc" placeholder="Description" onChange={handleChange} /> */}
                     <div className={style.btn_block}>
                         <button type="submit">Add API</button>
                     </div>
                 </form>
-
             </div >
-        </body >
+        </>
 
     )
 

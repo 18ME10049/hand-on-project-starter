@@ -30,7 +30,7 @@ function DashBoard() {
       </div>
       <div className={style.parent}>
         {allapi.map((item,index) =>(
-          item.IsPublish && <Card key ={index} name={item.name} image={item.url} description={item.desc} className={style.child} />
+          item.IsPublish && <Card key ={index} endpoint = {item.endpoint} name={item.name} image={item.url} description={item.desc} className={style.child} />
         ))
         }
       </div>
