@@ -4,16 +4,11 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const axios = require("axios");
-// var fs = require("fs");
 var FormData = require("form-data");
 const { sign } = require("jsonwebtoken");
 dotenv.config();
 const auth = require("./middlewares/auth")
 const nodemailer = require("nodemailer");
-// var ObjectId = require('mongodb').ObjectId;
-
-// eslint-disable-next-line no-unused-vars
-// var FormData = require("form-data");
 
 const app = express();
 app.use(cors());
@@ -69,11 +64,8 @@ const APISchema = new mongoose.Schema({
   }
 });
 
-// eslint-disable-next-line no-unused-vars
 const UserDetails = mongoose.model("UserDetails", UserSchema);
 const APIDetails = mongoose.model("APIDetails", APISchema);
-
-// const silence = new UserDetails({ email: "🤩", password: "Ptanhi@123" });
 
 async function Saveuserdata(userdata) {
   const newuser = new UserDetails(userdata);
@@ -131,8 +123,6 @@ app.post("/signupPage", (req, res) => {
               res.send({message: "OTP", otp: currOtp});
             }
           })
-          // Saveuserdata(Newuser);
-          // res.send({ message: "Succefully Registered 😎" });
         } catch (err) {
           res.send({ message: `Error : ${err}` });
         }
@@ -145,7 +135,6 @@ app.post("/verify-otp", async (req, res) => {
   const Rbody = req.body;
   var code = decryptmyotp(Rbody.code);
   var usercode = Rbody.usercode;
-  // // console.log("code = ", code, usercode);
   if(code == usercode){
     await Saveuserdata({email :Rbody.email, password: Rbody.password});
     res.send({Isverify:  true});
@@ -181,7 +170,6 @@ app.post("/loginPage", (req, res) => {
 // eslint-disable-next-line no-unused-vars
 app.post("/bg-remover", async (req, res) => {
   const { image } = req.body;
-  // res.send(req.body.data);
   const imageData = image.substring(image.indexOf(",") + 1);
   const formData = new FormData();
   formData.append("size", "auto");
@@ -201,10 +189,6 @@ app.post("/bg-remover", async (req, res) => {
     .then((response) => {
       if (response.status != 200)
         return console.error("Error:", response.status, response.statusText);
-      // fs.writeFileSync(
-      //   "C:/Users/pradh/Desktop/cuvette/no-bgg.png",
-      //   response.data,
-      // );
       res.send(response.data.data.result_b64);
     })
     .catch((error) => {
@@ -227,24 +211,19 @@ app.post("/new-api", auth, async (req, res) => {
 app.get("/allapi", async ( req, res)=>{
 
   APIDetails.find((err, apis) => {
-    // // console.log(apis);
     res.send(apis);
   })
 });
 
 app.post("/my-all-api",auth,async (req, res)=>{
   APIDetails.find({ email: req.user.email },  (err, apis)=>{
-    // // console.log("********",apis);
      res.send(apis);
   });
 });
 
 app.put("/update-card",async (req,res)=>{
-  
-  // var id = new ObjectId(req.body.id);
   var id=req.body.id;
   var obj=req.body.obj;
-  // console.log(id);
  try{
     APIDetails.findById(id,(err,result)=>{
     if(err)res.send({message:err});
@@ -266,7 +245,6 @@ app.put("/update-card",async (req,res)=>{
 })
  }
  catch(err){
-   // console.log("fs",err)
   res.send({message:err});
  }
   
@@ -296,9 +274,69 @@ app.put("/update-password", auth, async (req, res) => {
 
 app.delete("/delete-card",async(req,res)=>{
   await APIDetails.findByIdAndRemove(req.body.id).exec();
-  // // console.log(req.body.id);
   res.send("")
 })
+
+app.post('/forgot-password',async (req,res)=>{
+  var email=req.body.email;
+
+  // eslint-disable-next-line no-unused-vars
+  UserDetails.findOne({ email: email }, (err, user) => {
+    // console.log("sandy",email);
+    if (user) {
+      try {
+        
+        var currOtp = 1000 + Math.floor(Math.random() * 9000);
+        var mailOptions = {
+          from: 'marketplaceapiowner@gmail.com',
+          to: email,
+          subject: 'API Marketplace | One Time Password ',
+          text: `Use the following verification OTP: ${currOtp}`,
+          authentication: 'plain'
+        };
+        transporter.sendMail(mailOptions, async function (error, info) {
+          if (error) {
+            console.log(info);
+            res.send({ message: "error aa rhi hai" });
+          }
+          else {
+            currOtp = encryptmyotp(currOtp);
+            res.send({ message: "OTP", otp: currOtp });
+          }
+        })
+        // Saveuserdata(Newuser);
+        // res.send({ message: "Succefully Registered 😎" });
+      } catch (err) {
+        res.send({ message: `Error : ${err}` });
+      }
+    }
+    else {
+      res.send({ message: "User is not registered" });
+    }
+  });
+
+})
+
+
+app.post("/login-otp", async (req, res) => {
+  const Rbody = req.body;
+  // console.log("fshafd", Rbody);
+  var code = decryptmyotp(Rbody.code);
+  // console.log("code= :", code);
+  var usercode = Rbody.usercode;
+  if(code == usercode){
+    const accessToken = sign(
+      {
+        email: Rbody.email,
+      },
+      "Ram",
+    );
+    res.send({Isverify:  true, accessToken: accessToken});
+  }
+  else{
+    res.send({Isverify:  false});
+  }
+});
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`PORT ${process.env.PORT} is running ......`);
