@@ -2,18 +2,16 @@
 import Navbar from "../../components/Navbar/Navbar";
 import style from "./BgRemover.module.scss";
 import photo from "./girl.svg";
-// import cat from "./ccc.png"
 import axios from 'axios';
 // eslint-disable-next-line no-unused-vars
 import React,{Component} from 'react';
 import { useState } from "react";
-
-var url = "https://cdn.britannica.com/09/157809-050-073D23F3/Indian-bustard-bird-species.jpg"
+import df from "./Default.png";
 
 const BgRemover = () => {
 
     const [selectedFile, setSelectedFile] = useState();
-    const [image,setImage]=useState(url);
+    const [image,setImage]=useState(df);
     const [ready,setReady]= useState(false);
      
     const toBase64 = file => new Promise((resolve, reject) => {

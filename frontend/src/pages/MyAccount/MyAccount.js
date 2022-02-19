@@ -1,21 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import style from './MyAccount.module.scss'
-// import {Link} from 'react-router-dom';
+import style from './MyAccount.module.scss';
 import axios from "axios";
-// import { useNavigate } from "react-router-dom";
-// import { AuthContext } from "../../helper/authContext";
 import Navbar from "../../components/Navbar/Navbar";
 import swal from 'sweetalert2';
 import { useEffect } from "react";
 
 function MyAccount() {
-
-//   const {setAuthState} = useContext(AuthContext);
-  
-  
-
-//   let history = useNavigate();
   const [password, setPassword] = useState("");
   const [email,setEmail]=useState("pop");
 
@@ -64,8 +55,6 @@ function MyAccount() {
       swal.fire({
         icon: 'warning',
         title: err,
-        // showConfirmButton: false,
-        // timer: 1000,
       });
     });
   }
@@ -89,11 +78,6 @@ function MyAccount() {
       </div>
     </>}
     </>
-
-
-
-    
-    
   )
 
 }

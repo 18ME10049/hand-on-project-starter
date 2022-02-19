@@ -4,7 +4,6 @@ import style from "./signupPage.module.scss";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../../components/Navbar/Navbar";
-// import {useEffect} from 'react';
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 
@@ -24,7 +23,6 @@ function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(email, password);
     const obj = {
       email: email,
       password: password,
@@ -40,9 +38,7 @@ function SignupPage() {
           });
           document.getElementById("1").style.display = "none";
           document.getElementById("2").style.display = "block";
-          // // console.log("Yehh chal gya")
           setCode(res.data.otp);
-          // // console.log("Yehh")
         } else {
           swal({ title: res.data.message, icon: "info", button: "OK!" });
         }
@@ -53,7 +49,6 @@ function SignupPage() {
   };
 
   function handleVerify() {
-    // // console.log("handleVerify me hun: ",code,usercode, email , password);
     axios
       .post("http://localhost:3001/verify-otp", {
         email: email,
@@ -80,9 +75,7 @@ function SignupPage() {
   }
   function handleCross() {
     document.getElementById("2").style.display = "none";
-    // document.getElementsById("1").style.display="none";
     document.getElementById("1").style.display = "block";
-    // console.log("Cross clicked ")
   }
 
   return (

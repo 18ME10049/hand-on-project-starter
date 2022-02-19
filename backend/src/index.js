@@ -304,8 +304,6 @@ app.post('/forgot-password',async (req,res)=>{
             res.send({ message: "OTP", otp: currOtp });
           }
         })
-        // Saveuserdata(Newuser);
-        // res.send({ message: "Succefully Registered 😎" });
       } catch (err) {
         res.send({ message: `Error : ${err}` });
       }
@@ -320,9 +318,7 @@ app.post('/forgot-password',async (req,res)=>{
 
 app.post("/login-otp", async (req, res) => {
   const Rbody = req.body;
-  // console.log("fshafd", Rbody);
   var code = decryptmyotp(Rbody.code);
-  // console.log("code= :", code);
   var usercode = Rbody.usercode;
   if(code == usercode){
     const accessToken = sign(
@@ -338,6 +334,6 @@ app.post("/login-otp", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 3000, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log(`PORT ${process.env.PORT} is running ......`);
 });

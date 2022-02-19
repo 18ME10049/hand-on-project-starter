@@ -4,8 +4,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import BigTile from '../../components/BigTile/BigTile'
 import axios from 'axios'
 import Card from '../../components/Card/Card';
-import style from './DashBoard.module.scss'
-// import {useLocation} from 'react-router-dom';
+import style from './DashBoard.module.scss';
 // eslint-disable-next-line no-unused-vars
 
 import {  useEffect } from 'react'
@@ -16,9 +15,7 @@ function DashBoard() {
      useEffect(()=>{
        axios.get('http://localhost:3001/allapi')
        .then((res) => {
-         // console.log(res.data[0].name);
          setallapi(res.data);
-        //  seaa
        });
      },[])     
 

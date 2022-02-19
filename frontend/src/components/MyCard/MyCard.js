@@ -1,11 +1,8 @@
 import React from "react";
-// import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBCardImage, MDBBtn, MDBRipple } from 'mdb-react-ui-kit';
 import style from './MyCard.module.scss'
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { useEffect } from "react";
-// import swal from "sweetalert";
 import swal from "sweetalert2";
 // eslint-disable-next-line no-unused-vars
 const MyCard = (card) => {
@@ -26,21 +23,16 @@ const MyCard = (card) => {
     function handleEdit() {
         for(var i=0 ;i<document.getElementsByClassName("delete").length;i++ )
         document.getElementsByClassName("delete")[i].style.display="none";
-        // document.getElementsById("1").style.display="none";
         document.getElementById(card.id).style.display="block";
-        // console.log("Edit clicked ")
     }
     function handleCross() {
         for(var i=0 ;i<document.getElementsByClassName("delete").length;i++ )
         document.getElementsByClassName("delete")[i].style.display="flex";
-        // document.getElementsById("1").style.display="none";
         document.getElementById(card.id).style.display="none";
         
     }
     
     async function handleUpdate(){
-        // e.preventD/efault();
-        
         const obj = {
             name: name,
             url: url, 
@@ -48,7 +40,6 @@ const MyCard = (card) => {
             endpoint: endpoint,
             email: card.email,
         }
-        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
@@ -69,13 +60,10 @@ const MyCard = (card) => {
                 alert("error in signup: ", err);
             });
     }
-    async function handlePublish(){
-        // e.preventD/efault();
-        
+    async function handlePublish(){ 
         const obj = {
             IsPublish:true
         }
-        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
@@ -88,7 +76,6 @@ const MyCard = (card) => {
                     })
                     history("/");
                     history("/my-apis");
-                    // window.location.reload(false);
                 }
             })
             .catch(err => {
@@ -97,12 +84,10 @@ const MyCard = (card) => {
     }
 
     async function handleUnPublish(){
-        // e.preventD/efault();
         
         const obj = {
             IsPublish:false
         }
-        // console.log(obj)
         axios.put("http://localhost:3001/update-card", {id:card.id,obj:obj})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
@@ -115,7 +100,6 @@ const MyCard = (card) => {
                     })
                     history("/");
                     history("/my-apis");
-                    // window.location.reload(false);
                 }
             })
             .catch(err => {
@@ -124,14 +108,12 @@ const MyCard = (card) => {
     }
 
     async function handleDelete(){
-        // e.preventD/efault();
         axios.delete("http://localhost:3001/delete-card", {data: {id:card.id}})
             .then(res => {
                 if (res.data.message) alert(res.data.message);
                 else {
                     history("/")
                     history("/my-apis");
-                    // window.location.reload(false);
                 }
             })
             .catch(err => {

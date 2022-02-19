@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
-// import BigTile from '../../components/BigTile/BigTile'
 import axios from 'axios'
 import MyCard from '../../components/MyCard/MyCard';
-import style from './MyAPIs.module.scss'
-// import {useLocation} from 'react-router-dom';
-// eslint-disable-next-line no-unused-vars
+import style from './MyAPIs.module.scss';
 
 import {  useEffect } from 'react'
 function MyAPIs() {
@@ -14,14 +11,10 @@ function MyAPIs() {
      const [myapi,setmyapi]= useState([]);
 
      useEffect(async ()=>{
-       var head=await sessionStorage.getItem("accessToken")
-       // console.log("head",head)
+       var head=await sessionStorage.getItem("accessToken");
        axios.post('http://localhost:3001/my-all-api', {header:head})
        .then((res) => {
-        //  // console.log(res.data[0].name);
          setmyapi(res.data);
-        //  seaa
-        // console
        });
      },[])     
 

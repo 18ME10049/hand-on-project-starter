@@ -37,7 +37,6 @@ function NewAPI() {
             endpoint: endpoint,
             IsPublish:false,
         }
-       // console.log(obj);
         axios.post("http://localhost:3001/new-api", obj,)
             .then(res => {
                 if (res.data.message) alert(res.data.message);
@@ -60,7 +59,6 @@ function NewAPI() {
                     <input className={style.forinput} type="text" name="url" id="url" placeholder="API Image Url" onChange={handleChange} />
                     <input className={style.forinput} type="text" name="endpoint" id="endpoint" placeholder="API Endpoint" onChange={handleChange} />
                     <textarea  className={style.fortextarea} type="text" name="desc" id="url" placeholder="Enter Description" cols="30" rows="5" onChange={handleChange} />
-                    {/* <input type="text" name="desc" id="desc" placeholder="Description" onChange={handleChange} /> */}
                     <div className={style.btn_block}>
                         <button type="submit">Add API</button>
                     </div>

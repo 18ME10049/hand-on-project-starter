@@ -26,7 +26,6 @@ function LoginPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(email, password);
     const obj = {
       email: email,
       password: password,
@@ -54,7 +53,6 @@ function LoginPage() {
   };
 
   function handleforgetpassword() {
-    // console.log("pop")
     if (email === null) {
       swal.fire({
         icon: 'info',
@@ -93,7 +91,6 @@ function LoginPage() {
   }
 
   function handleVerify() {
-    // // console.log("handleVerify me hun: ",code,usercode, email , password);
     axios
       .post("http://localhost:3001/login-otp", {
         email: email,
@@ -117,9 +114,7 @@ function LoginPage() {
 
   function handleCross() {
     document.getElementById("2").style.display = "none";
-    // document.getElementsById("1").style.display="none";
     document.getElementById("1").style.display = "block";
-    // console.log("Cross clicked ")
   }
 
   return (
